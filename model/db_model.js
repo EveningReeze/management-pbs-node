@@ -9,11 +9,11 @@ exports.isRegister=()=>{
 // 注册用户
 exports.insertUser=(value)=>{
     let _sql = "insert into users set ?;"
-    return db.query2(_sql)
+    return db.query2(_sql,value)
 }
 
 // 登录
-exports.signin=(name)=>{
-    let _sql = `select * from users where name="${name}"`
-    return db.query2(_sql)
-}
+exports.signin=(username)=>{
+    let _sql = 'SELECT * FROM users WHERE username = ?';
+    return db.query2(_sql, [username]);
+};

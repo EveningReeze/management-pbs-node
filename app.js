@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const config = require("./config/default");
 const jwt = require("./lib/jwt");
-// const  db = require("./model/db")  调用数据库
+const  db = require("./model/db")  //调用数据库
 //加入静态文件
 app.use(express.static(__dirname + "/data"));
 
@@ -51,9 +51,9 @@ app.use(express.json()); //解析前端数据
 
 
 app.use(async (req, res, next) => {
-  console.log('请求路径:', req.path);
-  console.log('请求体:', req.body);
-  console.log('token值:', req.body?.token);
+  // console.log('请求路径:', req.path);
+  // console.log('请求体:', req.body);
+  // console.log('token值:', req.body?.token);
   // 公开接口列表（不需要token）
   const publicApis = ['/isRegister', '/login', '/register'];
   
@@ -84,7 +84,9 @@ app.use(async (req, res, next) => {
 
 
 require("./routes/index")(app);
+db.create();  // 在服务器启动前执行
 
 app.listen(config.port, () => {
   console.log(`已启动服务，端口号${config.port}`);
 });
+

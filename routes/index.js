@@ -8,7 +8,8 @@ app.post("/isRegister",(req,res)=>{
 })
 // 注册
 app.post("/register",(req,res)=>{
-    serve.isRegister(req,res)
+    // serve.isRegister(req,res)
+    serve.insertUser(req,res)
 })
 // 登录
 app.post("/login",(req,res)=>{
