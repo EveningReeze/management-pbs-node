@@ -313,10 +313,17 @@ exports.createArticle = async (req,res)=>{
 exports.gainArticle = async (req,res)=>{
     let data = req.body
     await dbModle.gainArticle(data.id).then((result)=>{
+           const formattedResults = result.map(item => {
+            if (item.cover && !item.cover.startsWith('http')) {
+                item.cover = `${BASE_URL}/uploads/${item.cover}`;
+            }
+            return item;
+        });
+
         res.send({
             code:200,
             message:"查询成功",
-            data:result
+            data:formattedResults
         })
     })
 }
@@ -324,7 +331,7 @@ exports.gainArticle = async (req,res)=>{
 // 编辑文章
 exports.updateArticle =  async (req,res)=>{
     let data = req.body
-    await dbModle.updateArticle(data.id).then((result)=>{
+    await dbModle.updateArticle(data.id,data.value).then((result)=>{
         res.send({
             code:200,
             message:"编辑成功",
